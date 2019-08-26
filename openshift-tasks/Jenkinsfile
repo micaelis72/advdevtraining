@@ -14,23 +14,21 @@ pipeline {
   stages {
     stage('Checkout Source') {
       steps {
-          dir('openshift-tasks') {
-            checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/micaelis72/advdevtraining.git']]])    
-            script {
-                 def pom = readMavenPom file: 'pom.xml'
-                 def version = pom.version
+        checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/micaelis72/advdevtraining.git']]])    
+        script {
+          def pom = readMavenPom file: 'pom.xml'
+          def version = pom.version
 
-                 devTag  = "${version}-" + currentBuild.number
-                 prodTag = "${version}"
-            }
-          }    
+          devTag  = "${version}-" + currentBuild.number
+          prodTag = "${version}"
         }
-      }  
-      stage('Build War File') {
-        steps {
-          echo "Building version ${devTag}"
-          sh "${mvnCmd} -DskipTests=true"
-        }   
-      }  
-    }
+      }    
+    }  
+    stage('Build War File') {
+      steps {
+        echo "Building version ${devTag}"
+        sh "${mvnCmd} -DskipTests=true"
+      }   
+    }  
   }
+}
