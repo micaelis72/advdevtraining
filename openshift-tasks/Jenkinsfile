@@ -5,7 +5,7 @@ def devTag      = "0.0-0"
 def prodTag     = "0.0"
 def destApp     = "tasks-green"
 def activeApp   = ""
-def mvnCmd = "mvn clean package"
+def mvnCmd = "mvn -f openshift-tasks/pom.xml"
 
 pipeline {
   agent {
@@ -27,7 +27,7 @@ pipeline {
     stage('Build War File') {
       steps {
         echo "Building version ${devTag}"
-        sh "${mvnCmd} -DskipTests=true"
+        sh "${mvnCmd} clean package -DskipTests=true"
       }   
     }  
   }
