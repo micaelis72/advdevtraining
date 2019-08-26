@@ -6,6 +6,7 @@ def prodTag     = "0.0"
 def destApp     = "tasks-green"
 def activeApp   = ""
 def mvnCmd = "mvn -s openshift-tasks/nexus.xml -f openshift-tasks/pom.xml"
+def version = ""
 
 pipeline {
   agent {
@@ -17,7 +18,7 @@ pipeline {
         checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/micaelis72/advdevtraining.git']]])    
         script {
           def pom = readMavenPom file: 'openshift-tasks/pom.xml'
-          def version = pom.version
+          version = pom.version
 
           devTag  = "${version}-" + currentBuild.number
           prodTag = "${version}"
