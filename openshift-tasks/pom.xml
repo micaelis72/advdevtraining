@@ -44,8 +44,8 @@
   </repositories>
   <pluginRepositories>
     <pluginRepository>
-      <id>Nexus</id>
-      <url>http://nexus3.gpte-hw-cicd.svc.cluster.local:8081/repository/maven-all-public</url>
+      <id>jboss-enterprise-maven-repository</id>
+      <url>https://maven.repository.redhat.com/ga/</url>
       <releases>
         <enabled>true</enabled>
       </releases>
