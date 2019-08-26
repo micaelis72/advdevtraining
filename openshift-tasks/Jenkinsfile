@@ -5,7 +5,7 @@ def devTag      = "0.0-0"
 def prodTag     = "0.0"
 def destApp     = "tasks-green"
 def activeApp   = ""
-def mvnCmd = "mvn"
+def mvnCmd = "mvn -f openshift-tasks/pom.xml"
 
 pipeline {
   agent {
