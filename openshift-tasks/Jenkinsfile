@@ -36,6 +36,14 @@ pipeline {
         sh "${mvnCmd} test"
         step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
       }
+    }
+    stage('Code Analysis') {
+      steps {
+        script {
+          echo "Running Code Analysis"
+          sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube-gpte-hw-cicd.apps.na311.openshift.opentlc.com/ -Dsonar.projectName=${devProject} -Dsonar.projectVersion=${devTag}"
+        }
+      }
     }      
   }
 }
