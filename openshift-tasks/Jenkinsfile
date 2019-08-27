@@ -96,8 +96,8 @@ pipeline {
           openshift.withCluster() {
             openshift.withProject("${prodProject}") {
               openshift.tag("${devProject}/tasks:${devTag}", "${devProject}/tasks:${prodTag}")
-              }
             }
+          }
         }
       }
     }
