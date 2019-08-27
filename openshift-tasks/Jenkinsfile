@@ -121,7 +121,7 @@ pipeline {
               openshift.apply(dc)
 
               openshift.selector("configmap", "${destApp}-config").delete()
-              def configmap = openshift.create("configmap", "${destApp}-config", "--from-file=./configuration/application-users.properties", "--from-file=./configuration/application-roles.properties" )
+              def configmap = openshift.create("configmap", "${destApp}-config", "--from-file=./openshift-tasks/configuration/application-users.properties", "--from-file=./openshift-tasks/configuration/application-roles.properties" )
 
               openshift.selector("dc", "${destApp}").rollout().latest();
 
