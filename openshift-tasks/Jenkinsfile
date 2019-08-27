@@ -65,6 +65,19 @@ pipeline {
         }
       }
     }
+    stage('Copy Image to Nexus Docker Registry') {
+      steps {
+        echo "Copy image to Nexus Docker Registry"
+        script {
+          sh "skopeo copy --src-tls-verify=false --dest-tls-verify=false --src-creds openshift:\$(oc whoami -t) --dest-creds admin:redhat docker://docker-registry.default.svc.cluster.local:5000/${devProject}/tasks:${devTag} docker://nexus3-registry.gpte-hw-cicd.svc.cluster.local:5000/tasks:${devTag}"
+          openshift.withCluster() {
+            openshift.withProject("${prodProject}") {
+              openshift.tag("${devProject}/tasks:${devTag}", "${devProject}/tasks:${prodTag}")
+            }
+          }
+        }
+      }
+    }
     stage('Deploy to Dev') {
       steps {
         echo "Deploying container image to Development Project"
@@ -85,19 +98,6 @@ pipeline {
               }
             }
           } 
-        }
-      }
-    }
-    stage('Copy Image to Nexus Docker Registry') {
-      steps {
-        echo "Copy image to Nexus Docker Registry"
-        script {
-          sh "skopeo copy --src-tls-verify=false --dest-tls-verify=false --src-creds openshift:\$(oc whoami -t) --dest-creds admin:redhat docker://docker-registry.default.svc.cluster.local:5000/${devProject}/tasks:${devTag} docker://nexus3-registry.gpte-hw-cicd.svc.cluster.local:5000/tasks:${devTag}"
-          openshift.withCluster() {
-            openshift.withProject("${prodProject}") {
-              openshift.tag("${devProject}/tasks:${devTag}", "${devProject}/tasks:${prodTag}")
-            }
-          }
         }
       }
     }
