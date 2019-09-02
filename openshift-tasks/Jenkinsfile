@@ -10,7 +10,12 @@ pipeline {
   stages {
     stage('mvn') {
       steps {
-        sh 'mvn --version'
+        withMaven(
+          maven: 'maven-3',
+          mavenSettingsConfig: 'my-maven-settings') {
+          sh "mvn clean version"
+        )
+        }
       }
     }
   }
