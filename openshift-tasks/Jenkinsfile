@@ -12,12 +12,12 @@ pipeline {
   agent {
     kubernetes {
       containerTemplate { 
-        name 'maven-appdev', 
+        name 'jnlp'
         image 'docker-registry.default.svc:5000/5149-jenkins/maven-appdev:latest', 
-        ttyEnabled false, 
-        command '', 
-        args '${computer.jnlpmac} ${computer.name}', 
-        serviceAccount 'jenkins', 
+        ttyEnabled false 
+        command '' 
+        args '${computer.jnlpmac} ${computer.name}' 
+        serviceAccount 'jenkins' 
         resourceLimitMemory '2Gi'
       } 
     }   
