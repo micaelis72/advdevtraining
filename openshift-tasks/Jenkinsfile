@@ -8,11 +8,30 @@ def activeApp   = ""
 def mvnCmd = "mvn -s openshift-tasks/nexus.xml -f openshift-tasks/pom.xml"
 def version = ""
 
-podTemplate(cloud: 'openshift', label: 'maven-appdev', name: 'maven-appdev', 
-  containers: [
-    containerTemplate(name: 'jnlp', image: 'docker-registry.default.svc:5000/5149-jenkins/maven-appdev', args: '${computer.jnlpmac} ${computer.name}', serviceAccount: 'jenkins', resourceLimitMemory: '2Gi', workingDirectory: '/tmp')])
-{
-  node('maven-appdev') {
+pipeline {
+  agent {
+    kubernetes {
+      cloud: 'openshift'
+      defaultContainer 'jnlp'
+      yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    name: maven-apps
+spec:
+  containers:
+  - name: jnlp
+    image: docker-registry.default.svc:5000/5149-jenkins/maven-appdev
+    args: '\${computer.jnlpmac} \${computer.name}'
+    tty: false
+    serviceAccount: jenkins
+    resourceLimitMemory: 2Gi
+    workingDirectory: /tmp
+"""
+    }
+  }
+  stages {
     stage('Checkout Source') {
       steps {
         checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/micaelis72/advdevtraining.git']]])    
