@@ -24,7 +24,7 @@ spec:
     image: docker-registry.default.svc:5000/5149-jenkins/maven-appdev:latest
     tty: false
     command:
-    - '${computer.jnlpmac} ${computer.name}'
+    - ${computer.jnlpmac} ${computer.name}
     seviceAccount: 'jenkins'
     resourceLimitMemory '2Gi'
 """     
