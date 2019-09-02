@@ -12,7 +12,6 @@ pipeline {
   agent {
     kubernetes {
       cloud 'openshift'
-      name 'maven-apps'
       label 'maven-apps'
       defaultContainer 'jnlp'
       yamlFile 'openshift-tasks/openshiftPod.yaml'
