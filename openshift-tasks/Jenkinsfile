@@ -8,15 +8,11 @@ def activeApp   = ""
 def mvnCmd = "mvn -s openshift-tasks/nexus.xml -f openshift-tasks/pom.xml"
 def version = ""
 
-
-pipeline {
   podTemplate(name: 'maven-appdev', label: 'maven-appdev', 
 containers: [
     containerTemplate(name: 'jnlp', image: 'docker-registry.default.svc:5000/5149-jenkins/maven-appdev:latest', ttyEnabled: false, command: '', args: '${computer.jnlpmac} ${computer.name}', serviceAccount: 'jenkins', resourceLimitMemory: '2Gi')
   ]) 
-  agent {
-    label "maven-appdev"
-  }
+  {
   stages {
     stage('Checkout Source') {
       steps {
