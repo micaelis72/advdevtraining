@@ -7,8 +7,5 @@ spec:
   containers:
   - name: jnlp
     image: docker-registry.default.svc:5000/5149-jenkins/maven-appdev
-    tty: false
-    workingDirectory: /tmp
     serviceAccount: jenkins
     resourceLimitMemory: 2Gi
-    command: ['sh','-c', 'cp', '/usr/local/bin/scl_enable /tmp/.bashrc']
