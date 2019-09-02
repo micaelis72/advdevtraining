@@ -9,19 +9,27 @@ def mvnCmd = "mvn -s openshift-tasks/nexus.xml -f openshift-tasks/pom.xml"
 def version = ""
 
 pipeline {
-  agent {
+    agent {
     kubernetes {
-      containerTemplate { 
-        name 'jnlp'
-        image 'docker-registry.default.svc:5000/5149-jenkins/maven-appdev:latest', 
-        ttyEnabled false 
-        command '' 
-        args '${computer.jnlpmac} ${computer.name}' 
-        serviceAccount 'jenkins' 
-        resourceLimitMemory '2Gi'
-      } 
-    }   
-  }
+      defaultContainer 'jnlp'
+      yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    name: maven-appdev
+spec:
+  containers:
+  - name: jnlp
+    image: docker-registry.default.svc:5000/5149-jenkins/maven-appdev:latest
+    tty: false
+    command:
+    - '${computer.jnlpmac} ${computer.name}'
+    seviceAccount: 'jenkins'
+    resourceLimitMemory '2Gi'
+"""     
+    } 
+  }  
   stages {
     stage('Checkout Source') {
       steps {
