@@ -12,7 +12,7 @@ podTemplate(cloud: 'openshift', label: 'maven-appdev', name: 'maven-appdev',
   containers: [
     containerTemplate(name: 'jnlp', image: 'docker-registry.default.svc:5000/5149-jenkins/maven-appdev', args: '${computer.jnlpmac} ${computer.name}', serviceAccount: 'jenkins', resourceLimitMemory: '2Gi', workingDirectory: '/tmp')])
 {
-  node(maven-appdev) {
+  node('maven-appdev') {
   stages {
     stage('Checkout Source') {
       steps {
