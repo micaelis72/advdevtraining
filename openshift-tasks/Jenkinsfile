@@ -9,7 +9,9 @@ def mvnCmd = "mvn -s openshift-tasks/nexus.xml -f openshift-tasks/pom.xml"
 def version = ""
 
 pipeline {
-node('maven-app')
+  agent {
+    label 'maven-appdev'
+  }
 stages {
  stage('Checkout Source') {
       steps {
