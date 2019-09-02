@@ -1,8 +1,15 @@
+def prefix      = "5149"
+def devProject  = "${prefix}-tasks-dev"
+def prodProject = "${prefix}-tasks-prod"
+def devTag      = "0.0-0"
+def prodTag     = "0.0"
+def destApp     = "tasks-green"
+def activeApp   = ""
+def mvnCmd = "mvn -s openshift-tasks/nexus.xml -f openshift-tasks/pom.xml"
+def version = ""
+
 pipeline {
-    agent {
-   
-    label "maven-appdev"
-  }
+node('maven-app')
 stages {
  stage('Checkout Source') {
       steps {
