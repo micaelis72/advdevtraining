@@ -1,5 +1,9 @@
 pipeline {
-  stages {
+    agent {
+   
+    label "maven-appdev"
+  }
+stages {
  stage('Checkout Source') {
       steps {
         checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/micaelis72/advdevtraining.git']]])    
