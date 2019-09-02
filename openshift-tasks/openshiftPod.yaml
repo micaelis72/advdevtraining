@@ -10,5 +10,4 @@ spec:
     tty: false
     serviceAccount: jenkins
     resourceLimitMemory: 2Gi
-    command:
-      - ['sh','-c', 'source', '/usr/local/bin/scl_enable']
+    command: ['sh','-c', 'source', '/usr/local/bin/scl_enable']
