@@ -7,7 +7,7 @@ spec:
   containers:
   - name: jnlp
     image: docker-registry.default.svc:5000/5149-jenkins/maven-appdev
-    args: ['\${computer.jnlpmac} \${computer.name}']
+    args: ['${computer.jnlpmac} ${computer.name}']
     tty: false
     serviceAccount: jenkins
     resourceLimitMemory: 2Gi
