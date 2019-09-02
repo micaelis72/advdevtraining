@@ -10,7 +10,6 @@ spec:
     tty: false
     serviceAccount: jenkins
     resourceLimitMemory: 2Gi
-    workingDirectory: /tmp
     env:
     - name: PATH
       value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
