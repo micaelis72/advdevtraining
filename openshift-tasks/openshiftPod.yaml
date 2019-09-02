@@ -7,7 +7,6 @@ spec:
   containers:
   - name: jnlp
     image: docker-registry.default.svc:5000/5149-jenkins/maven-appdev
-    args: ['${computer.jnlpmac}', 'maven-apps']
     tty: false
     serviceAccount: jenkins
     resourceLimitMemory: 2Gi
