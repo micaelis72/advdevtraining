@@ -10,7 +10,7 @@ pipeline {
   stages {
     stage('mvn') {
       steps {
-        sh 'mvn --version'
+        sh 'which mvn'
       }
     }
   }
