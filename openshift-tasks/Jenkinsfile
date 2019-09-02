@@ -13,7 +13,6 @@ podTemplate(cloud: 'openshift', label: 'maven-appdev', name: 'maven-appdev',
     containerTemplate(name: 'jnlp', image: 'docker-registry.default.svc:5000/5149-jenkins/maven-appdev', args: '${computer.jnlpmac} ${computer.name}', serviceAccount: 'jenkins', resourceLimitMemory: '2Gi', workingDirectory: '/tmp')])
 {
   node('maven-appdev') {
-  stages {
     stage('Checkout Source') {
       steps {
         checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/micaelis72/advdevtraining.git']]])    
@@ -154,4 +153,3 @@ podTemplate(cloud: 'openshift', label: 'maven-appdev', name: 'maven-appdev',
     }
   }
 }      
-}
