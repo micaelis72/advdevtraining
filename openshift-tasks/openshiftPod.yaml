@@ -11,3 +11,5 @@ spec:
     serviceAccount: jenkins
     resourceLimitMemory: 2Gi
     workingDirectory: /tmp
+    command:
+      - source /usr/local/bin/scl_enable
