@@ -13,7 +13,7 @@ pipeline {
     kubernetes {
       cloud 'openshift'
       defaultContainer 'jnlp'
-      yamlFile 'openshiftPod.yaml'
+      yamlFile 'openshift-tasks/openshiftPod.yaml'
     }
   }
   stages {
