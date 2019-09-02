@@ -10,6 +10,5 @@ spec:
     tty: false
     serviceAccount: jenkins
     resourceLimitMemory: 2Gi
-    env:
-    - name: PATH
-      value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    command:
+      - ['sh','-c', 'source', '/usr/local/bin/scl_enable']
